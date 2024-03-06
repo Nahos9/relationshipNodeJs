@@ -21,10 +21,6 @@ export function userModel(sequelize,DataTypes){
         password:{
             type : DataTypes.STRING,
         },
-        user_id:{
-            type:DataTypes.INTEGER,
-            allowNull:false
-        }
     },{
         timestamps:true,
         createAt: 'created',

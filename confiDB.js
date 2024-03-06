@@ -7,18 +7,18 @@ import { roleModel } from './src/models/role.js'
 export const sequelize = new Sequelize('bibliotheque','root','',{
     host:'localhost',
     dialect : 'mariadb',
-    logging: true
+    logging: false
 })
 
-sequelize.sync({alter:true,force:true}).then(_=>{
+sequelize.sync({alter:true}).then(_=>{
     console.log('Connexion établie à la base de données!!')
 }).catch(error=>{
     console.log(error)
 })
 
-const user = userModel(sequelize,DataTypes)
-const role = roleModel(sequelize,DataTypes)
+export const User = userModel(sequelize,DataTypes)
+export const Role = roleModel(sequelize,DataTypes)
 
 //Dans cette relatio, la clée entrangère est definie dans le modele cible (user)
-role.hasMany(user,{foreignKey: 'role_id'})
-user.belongsTo(role,{foreignKey: 'role_id'})
+Role.hasMany(User,{foreignKey: 'role_id'})
+User.belongsTo(Role,{foreignKey: 'role_id'})
