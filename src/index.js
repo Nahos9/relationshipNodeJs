@@ -1,9 +1,7 @@
 import express from 'express'
 import bodyParser from 'body-parser'
-import { sequelize } from '../confiDB.js'
 import { inscription, login } from './routes/user_route.js'
 import { createRole } from './routes/role_route.js'
-import { authMidelware } from './midelware/authMidelware.js'
 import cors from 'cors'
 
 const app = express()
