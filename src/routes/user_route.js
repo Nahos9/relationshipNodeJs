@@ -5,7 +5,7 @@ import {TokenSigner} from 'jsontokens'
 
 export  function inscription(app){
     app.post('/api/signup',async (req,res)=>{
-        await Role.findOne({where: parseInt(req.body.role_id)})
+        await Role.findOne({where: req.body.role_id})
         .then(role=>{
             if(role){
                 bcrypt.hash(req.body.password,10)
