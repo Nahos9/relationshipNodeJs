@@ -19,6 +19,6 @@ sequelize.sync({alter:true}).then(_=>{
 export const User = userModel(sequelize,DataTypes)
 export const Role = roleModel(sequelize,DataTypes)
 
-//Dans cette relatio, la clée entrangère est definie dans le modele cible (user)
+//Dans cette relation, la clée entrangère est definie dans le modele cible (user)
 Role.hasMany(User,{foreignKey: 'role_id'})
 User.belongsTo(Role,{foreignKey: 'role_id'})

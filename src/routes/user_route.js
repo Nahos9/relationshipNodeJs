@@ -2,6 +2,7 @@ import { UniqueConstraintError, ValidationError } from "sequelize"
 import { Role, User } from "../../confiDB.js"
 import bcrypt from 'bcrypt'
 import {TokenSigner} from 'jsontokens'
+import { userModel } from "../models/userModel.js"
 
 export  function inscription(app){
     app.post('/api/signup',async (req,res)=>{
@@ -76,4 +77,35 @@ export function login(app){
             }
         })
     })
+}
+
+export function getAllUser(app){
+    app.get('/api/users',(req,res)=>{
+        User.findAll({
+            attributes:['email']
+        })
+        .then(users=>{
+            res.status(200).json({data:users})
+        }).catch(error=>{
+            console.log(error)
+        })
+    })
+}
+
+export async function getOneUser(app){
+    app.get('/api/users/:id',(req,res) => {
+        const user_id = parseInt(req.params.id)
+        User.findOne({where:{user_id}})
+        .then(user=>{
+            if(user == undefined || user == null){
+                const msg = "Not fund user"
+                res.status(404).json({msg})
+            }
+            res.status(200).json({data:user})
+        }).catch(error=>{
+            const msg = "Erreur du serveur!!"
+            res.status(400).json({msg})
+        })
+    })
+    
 }
